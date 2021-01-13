@@ -68,4 +68,29 @@ public class RouletteServiceImpl implements RouletteService {
 
         }
     }
+
+    private void drawWinners() {
+        int lowerLimit = 1;
+        int higherLimit = 37;
+        Random random = new Random();
+        int draw = random.nextInt(higherLimit - lowerLimit) + lowerLimit;
+        Map<String, Double> winnings = null;
+        double win = 0;
+        Set<String> keyPlayers = playerBets.keySet();
+        for(String player : keyPlayers){
+            winnings = new HashMap<>();
+            Map<String, Double> playerBet = playerBets.get(player);
+            if(playerBet.containsKey(draw)) {
+                win = playerBet.get(draw) * 36;
+                winnings.put(String.valueOf(draw), win);
+                playerWinnings.put(player, winnings);
+            }else if((draw % 2) == 0 && playerBet.containsKey("EVEN")) {
+                win = playerBet.get("EVEN") * 2;
+                winnings.put("EVEN", win);
+            }else if((draw % 2) > 0 && playerBet.containsKey("ODD")) {
+                win = playerBet.get("ODD") * 2;
+                winnings.put("ODD", win);
+            }
+        }
+    }
 }
