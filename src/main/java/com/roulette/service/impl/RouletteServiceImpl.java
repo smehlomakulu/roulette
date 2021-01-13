@@ -93,4 +93,21 @@ public class RouletteServiceImpl implements RouletteService {
             }
         }
     }
+
+    private void showResults(Map<String, Map<String, Double>> bets, int draw) {
+        System.out.println("Number: "+draw);
+        System.out.print("Player\t");
+        System.out.print("Bet\t");
+        System.out.print("Outcome\t");
+        System.out.println("Winnings");
+
+        for(String player : bets.keySet()) {
+            Map<String, Double> betMap = bets.get(player);
+            betMap.keySet().forEach(bet -> {
+                System.out.print(player+"\t");
+                System.out.print(bet+"\t");
+            });
+
+        }
+    }
 }
